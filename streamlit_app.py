@@ -5,7 +5,7 @@ import pandas as pd
 
 # === CONFIGURACIÓN GENERAL DE LA PÁGINA ===
 st.set_page_config(page_title="Control de Mantenimientos", layout="wide")
-st.title("Herramienta para la auditoria de ejecución de especialidades")
+st.title("Auditoria ejecución especialidades Mtto Preventivo")
 
 # === CONFIGURACIÓN DEL ARCHIVO ===
 archivo = "libroTest.xlsx"
@@ -25,7 +25,7 @@ if archivo:
 
     SubEspecialidadesGenerales = [
         "AA", "GE-TTA-TK", "IE", "SE-LT", "REC-BB", "TX", "TX-BH",
-        "UPS", "INV-AVR", "LT", "RADIO", "SOL-EOL", "#N/D", "0"
+        "UPS", "INV-AVR", "LT", "RADIO", "SOL-EOL"
     ]
 
     # === CONVERSIÓN DE FECHAS ===
@@ -59,8 +59,6 @@ if archivo:
     conteo.reset_index(inplace=True)
     conteo["CAMBIO_MES_A_MES"] = conteo.groupby(columnaSites)["TOTAL"].diff().fillna(0)
 
-    
-    
 
     # === ESTADOS ===
     estado = (
@@ -145,7 +143,7 @@ if archivo:
     # === DESCARGA DE RESULTADOS ===
     with pd.ExcelWriter("Reporte_Control_Streamlit.xlsx") as writer:
         conteo.to_excel(writer, sheet_name="Conteo", index=False)
-        estado.to_excel(writer, sheet_name="Estados", index=False)
+       # estado.to_excel(writer, sheet_name="Estados", index=False)
         contratista.to_excel(writer, sheet_name="Contratistas", index=False)
         alarma.to_excel(writer, sheet_name="Alarmas", index=False)
 
